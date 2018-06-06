@@ -120,6 +120,9 @@ namespace AssetBundleFramework
             AssetDatabase.Refresh();
         }
 
+        /// <summary>
+        /// 删除打包资源
+        /// </summary>
         [MenuItem("AssetBundleTools/DeleteAllAssetBundles")]
         public static void DeleteAllAssetBundles()
         {
