@@ -17,7 +17,7 @@ namespace AssetBundleFramework
             DirectoryInfo[] abDirector;
 
             AssetDatabase.RemoveUnusedAssetBundleNames();
-            //ClearAssetBundlesName();
+            //clearAssetBundlesName();
             //获取打包资源根目录
             abRootPath = PathTools.getABResourcesPath();
             DirectoryInfo abRootDirector = new DirectoryInfo(abRootPath);
@@ -29,12 +29,14 @@ namespace AssetBundleFramework
                 string assetName = scenesDir.Name;
                 findFile(scenesDir, assetName);
             }
+            AssetDatabase.Refresh();
+            Debug.LogWarning("设置成功");
         }
 
         /// <summary>
         /// 清除所有标记
         /// </summary>
-        public static void ClearAssetBundlesName()
+        public static void clearAssetBundlesName()
         {
             //获取所有的AssetBundle名称  
             string[] abNames = AssetDatabase.GetAllAssetBundleNames();
@@ -96,11 +98,11 @@ namespace AssetBundleFramework
             if (bundlePath.Contains("/"))
             {
                 string[] strArr = bundlePath.Split('/');
-                bundleName = assetName + "/" + strArr[1];
+                bundleName = assetName + "/" + strArr[0];
             }
             else
             {
-                bundleName = assetName;
+                bundleName = assetName + "/" + assetName;
             }
             importer.assetBundleName = bundleName;
         }
@@ -109,12 +111,26 @@ namespace AssetBundleFramework
         public static void buildAllAssetBundle()
         {
             string outPath = string.Empty;
-            outPath = Application.streamingAssetsPath;
+            outPath = PathTools.getABOutPath();
             if (!Directory.Exists(outPath))
             {
                 Directory.CreateDirectory(outPath);
             }
             BuildPipeline.BuildAssetBundles(outPath, BuildAssetBundleOptions.None, BuildTarget.StandaloneWindows64);
+            AssetDatabase.Refresh();
+        }
+
+        [MenuItem("AssetBundleTools/DeleteAllAssetBundles")]
+        public static void DeleteAllAssetBundles()
+        {
+            string outPath = string.Empty;
+            outPath = PathTools.getABOutPath();
+            if(!string.IsNullOrEmpty(outPath))
+            {
+                Directory.Delete(outPath, true);
+                File.Delete(outPath + ".meta");
+            }
+            AssetDatabase.Refresh();
         }
     }
 }

@@ -1,0 +1,14 @@
+ManifestFileVersion: 0
+CRC: 4232408845
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 32b47d39fd905f010d95f76a8fbb5a75
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 31d6cfe0d16ae931b73c59d7e0c089c0
+HashAppended: 0
+ClassTypes: []
+Assets:
+- Assets/AB_Resources/Scenes_1/SampleScenes.unity
+Dependencies: []

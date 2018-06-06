@@ -1,0 +1,10 @@
+ManifestFileVersion: 0
+CRC: 3466134191
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: scenes_1/texture.assetbundle
+      Dependencies: {}
+    Info_1:
+      Name: scenes_1/scenes_1.u3d
+      Dependencies: {}
