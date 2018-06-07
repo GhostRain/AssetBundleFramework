@@ -18,15 +18,15 @@ namespace AssetBundleFramework
         /// AssetBundle输出路径
         /// </summary>
         /// <returns></returns>
-        public static string getABOutPath()
+        public static string getABOutPath(RuntimePlatform platform)
         {
-            return getPlatformPath() + "/" + getPlatformName();
+            return getPlatformPath(platform);
         }
 
-        private static string getPlatformPath()
+        private static string getPlatformPath(RuntimePlatform platform)
         {
             string platformPath = string.Empty;
-            switch (Application.platform)
+            switch (platform)
             {
                 case RuntimePlatform.WindowsPlayer:
                 case RuntimePlatform.WindowsEditor:
@@ -40,27 +40,6 @@ namespace AssetBundleFramework
                     break;
             }
             return platformPath;
-        }
-
-        private static string getPlatformName()
-        {
-            string platformName = string.Empty;
-            switch (Application.platform)
-            {
-                case RuntimePlatform.WindowsPlayer:
-                case RuntimePlatform.WindowsEditor:
-                    platformName = "windows";
-                    break;
-                case RuntimePlatform.IPhonePlayer:
-                    platformName = "ios";
-                    break;
-                case RuntimePlatform.Android:
-                    platformName = "android";
-                    break;
-                default:
-                    break;
-            }
-            return platformName;
         }
     }
 }

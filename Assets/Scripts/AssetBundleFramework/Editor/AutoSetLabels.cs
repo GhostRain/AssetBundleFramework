@@ -16,8 +16,8 @@ namespace AssetBundleFramework
             //根目录下的目录信息
             DirectoryInfo[] abDirector;
 
-            AssetDatabase.RemoveUnusedAssetBundleNames();
-            //clearAssetBundlesName();
+            //AssetDatabase.RemoveUnusedAssetBundleNames();
+            clearAssetBundlesName();
             //获取打包资源根目录
             abRootPath = PathTools.getABResourcesPath();
             DirectoryInfo abRootDirector = new DirectoryInfo(abRootPath);
@@ -85,7 +85,7 @@ namespace AssetBundleFramework
             if (fileInfo.Extension == ".unity")
                 importer.assetBundleVariant = "u3d";
             else
-                importer.assetBundleVariant = "assetbundle";
+                importer.assetBundleVariant = "ab";
             //包名称
             string bundleName = string.Empty;
             //需要拿到场景目录下面一级目录名称
@@ -107,11 +107,15 @@ namespace AssetBundleFramework
             importer.assetBundleName = bundleName;
         }
 
-        [MenuItem("AssetBundleTools/BuildAllAssetBundles")]
-        public static void buildAllAssetBundle()
+        /// <summary>
+        /// 打包windows资源
+        /// </summary>
+        [MenuItem("AssetBundleTools/BuildWindowsAssetBundles")]
+        public static void buildWindowsAssetBundle()
         {
+            DeleteAllAssetBundles(RuntimePlatform.WindowsPlayer);
             string outPath = string.Empty;
-            outPath = PathTools.getABOutPath();
+            outPath = PathTools.getABOutPath(RuntimePlatform.WindowsPlayer);
             if (!Directory.Exists(outPath))
             {
                 Directory.CreateDirectory(outPath);
@@ -121,17 +125,55 @@ namespace AssetBundleFramework
         }
 
         /// <summary>
-        /// 删除打包资源
+        /// 打包ios资源
         /// </summary>
-        [MenuItem("AssetBundleTools/DeleteAllAssetBundles")]
-        public static void DeleteAllAssetBundles()
+        [MenuItem("AssetBundleTools/BuildIosAssetBundles")]
+        public static void buildIosAssetBundle()
+        {
+            DeleteAllAssetBundles(RuntimePlatform.IPhonePlayer);
+            string outPath = string.Empty;
+            outPath = PathTools.getABOutPath(RuntimePlatform.IPhonePlayer);
+            if (!Directory.Exists(outPath))
+            {
+                Directory.CreateDirectory(outPath);
+            }
+            BuildPipeline.BuildAssetBundles(outPath, BuildAssetBundleOptions.None, BuildTarget.iOS);
+            AssetDatabase.Refresh();
+        }
+
+        /// <summary>
+        /// 打包android资源
+        /// </summary>
+        [MenuItem("AssetBundleTools/BuildAndroidAssetBundles")]
+        public static void buildAndroidAssetBundle()
+        {
+            DeleteAllAssetBundles(RuntimePlatform.Android);
+            string outPath = string.Empty;
+            outPath = PathTools.getABOutPath(RuntimePlatform.Android);
+            if (!Directory.Exists(outPath))
+            {
+                Directory.CreateDirectory(outPath);
+            }
+            BuildPipeline.BuildAssetBundles(outPath, BuildAssetBundleOptions.None, BuildTarget.Android);
+            AssetDatabase.Refresh();
+        }
+
+        /// <summary>
+        /// 删除指定平台资源包
+        /// </summary>
+        /// <param name="platform"></param>
+        private static void DeleteAllAssetBundles(RuntimePlatform platform)
         {
             string outPath = string.Empty;
-            outPath = PathTools.getABOutPath();
+            outPath = PathTools.getABOutPath(platform);
+            Debug.Log("删除资源:"+outPath);
             if(!string.IsNullOrEmpty(outPath))
             {
-                Directory.Delete(outPath, true);
-                File.Delete(outPath + ".meta");
+                if (Directory.Exists(outPath))
+                {
+                    Directory.Delete(outPath, true);
+                    File.Delete(outPath + ".meta");
+                }
             }
             AssetDatabase.Refresh();
         }
