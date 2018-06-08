@@ -20,11 +20,6 @@ namespace AssetBundleFramework
         /// <returns></returns>
         public static string getABOutPath(RuntimePlatform platform)
         {
-            return getPlatformPath(platform);
-        }
-
-        private static string getPlatformPath(RuntimePlatform platform)
-        {
             string platformPath = string.Empty;
             switch (platform)
             {
@@ -40,6 +35,27 @@ namespace AssetBundleFramework
                     break;
             }
             return platformPath;
+        }
+
+        public static string GetWWWPath()
+        {
+            string wwwPath = string.Empty;
+            switch (Application.platform)
+            {
+                case RuntimePlatform.WindowsPlayer:
+                case RuntimePlatform.WindowsEditor:
+                    wwwPath = "file://" + getABOutPath(Application.platform);
+                    break;
+                case RuntimePlatform.IPhonePlayer:
+                    wwwPath = getABOutPath(Application.platform);
+                    break;
+                case RuntimePlatform.Android:
+                    wwwPath = "jar:file://" + getABOutPath(Application.platform);
+                    break;
+                default:
+                    break;
+            }
+            return wwwPath;
         }
     }
 }
