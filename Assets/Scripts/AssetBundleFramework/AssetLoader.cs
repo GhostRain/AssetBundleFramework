@@ -19,6 +19,7 @@ namespace AssetBundleFramework
             {
                 curAssetBundle = assetBundle;
             }
+            assetHash = new Hashtable();
         }
 
         /// <summary>
