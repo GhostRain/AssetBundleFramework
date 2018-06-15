@@ -59,7 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Editor\AutoSetLabels.cs" />
+    <Compile Include="Assets\Scripts\AssetBundleFramework\Editor\AutoSetLabels.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>D:/works/U3Dproject/AssetBundleFramework/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
@@ -299,6 +299,9 @@
     </Reference>
     <Reference Include="UnityEditor.Graphs">
       <HintPath>E:/Unity2018/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Android.Extensions">
+      <HintPath>E:/Unity2018/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.WindowsStandalone.Extensions">
       <HintPath>E:/Unity2018/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
