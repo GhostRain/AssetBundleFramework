@@ -37,7 +37,34 @@ namespace AssetBundleFramework
             return platformPath;
         }
 
-        public static string GetWWWPath()
+        /// <summary>
+        /// ab包的根目录名称
+        /// </summary>
+        /// <returns></returns>
+        public static string GetABPathName()
+        {
+            string name = string.Empty;
+            switch (Application.platform)
+            {
+                case RuntimePlatform.WindowsPlayer:
+                case RuntimePlatform.WindowsEditor:
+                    name = "StreamingAssets";
+                    break;
+                case RuntimePlatform.IPhonePlayer:
+                case RuntimePlatform.Android:
+                    name = "PersistentData";
+                    break;
+                default:
+                    break;
+            }
+            return name;
+        }
+
+        /// <summary>
+        /// ab包的url路径
+        /// </summary>
+        /// <returns></returns>
+        public static string GetUrlPath()
         {
             string wwwPath = string.Empty;
             switch (Application.platform)

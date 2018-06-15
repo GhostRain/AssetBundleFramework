@@ -10,6 +10,8 @@ namespace AssetBundleFramework
         private AssetLoader assetLoader;
         private string abName;
         private string abPath;
+        //引用计数
+        private int refCount;
 
         //下载完成委托
         private ABLoadComplete loadCompleteHandler;
@@ -17,7 +19,7 @@ namespace AssetBundleFramework
         public SingleAssetBundleLoader(string abName, ABLoadComplete loadCompleteHandler = null)
         {
             this.abName = abName;
-            this.abPath = PathTools.GetWWWPath() + "/" + this.abName;
+            this.abPath = PathTools.GetUrlPath() + "/" + this.abName;
             this.loadCompleteHandler = loadCompleteHandler;
         }
 
@@ -86,6 +88,16 @@ namespace AssetBundleFramework
             if (assetLoader != null)
                 return assetLoader.GetAllAssetName();
             return null;
+        }
+
+        public void Retain()
+        {
+            refCount++;
+        }
+
+        public void Release()
+        {
+            refCount--;
         }
     }
 }
