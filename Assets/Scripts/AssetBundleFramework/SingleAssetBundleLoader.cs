@@ -16,11 +16,14 @@ namespace AssetBundleFramework
         //下载完成委托
         private ABLoadComplete loadCompleteHandler;
 
+        public ABRelation Relation { get; private set; }
+
         public SingleAssetBundleLoader(string abName, ABLoadComplete loadCompleteHandler = null)
         {
             this.abName = abName;
             this.abPath = PathTools.GetUrlPath() + "/" + this.abName;
             this.loadCompleteHandler = loadCompleteHandler;
+            this.Relation = new ABRelation(abName);
         }
 
         /// <summary>

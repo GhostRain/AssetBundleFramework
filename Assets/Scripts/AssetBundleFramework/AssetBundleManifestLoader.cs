@@ -42,6 +42,7 @@ namespace AssetBundleFramework
                 if (assetBundle != null)
                 {
                     IsLoadFinish = true;
+                    bundleManifest = assetBundle.LoadAsset<AssetBundleManifest>(AssetBundleDefine.ASSETBUNDLE_MANIFEST);
                     if (loadCompleteHandler != null)
                         loadCompleteHandler(AssetBundleDefine.ASSETBUNDLE_MANIFEST);
                 }
@@ -74,7 +75,7 @@ namespace AssetBundleFramework
         {
             if(bundleManifest != null)
             {
-                return bundleManifest.GetAllDependencies(abName);
+                return bundleManifest.GetDirectDependencies(abName);
             }
             return null;
         }
